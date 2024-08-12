@@ -1,4 +1,4 @@
-package dev.ses.kits.manager.kit;
+package dev.ses.kits.kit;
 
 
 import dev.ses.kits.Main;

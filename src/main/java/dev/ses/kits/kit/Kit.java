@@ -1,4 +1,4 @@
-package dev.ses.kits.manager.kit;
+package dev.ses.kits.kit;
 
 import com.google.common.collect.Lists;
 import dev.ses.kits.utils.CooldownUtil;

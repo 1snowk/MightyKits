@@ -1,7 +1,7 @@
-package dev.ses.kits.manager.kit.menu;
+package dev.ses.kits.kit.menu;
 
 import dev.ses.kits.Main;
-import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.kit.Kit;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.CooldownUtil;
 import dev.ses.kits.utils.Utils;
@@ -12,8 +12,6 @@ import dev.ses.kits.utils.sound.CompatibleSound;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.stream.IntStream;
 
 public class KitPreviewMenu extends Menu {
 

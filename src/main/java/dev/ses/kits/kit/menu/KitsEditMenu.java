@@ -1,7 +1,7 @@
-package dev.ses.kits.manager.kit.menu;
+package dev.ses.kits.kit.menu;
 
 import dev.ses.kits.Main;
-import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.kit.Kit;
 import dev.ses.kits.utils.InventoryUtils;
 import dev.ses.kits.utils.StringUtil;
 import dev.ses.kits.utils.Utils;

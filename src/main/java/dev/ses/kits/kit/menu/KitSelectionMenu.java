@@ -1,8 +1,8 @@
-package dev.ses.kits.manager.kit.menu;
+package dev.ses.kits.kit.menu;
 
 
 import dev.ses.kits.Main;
-import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.kit.Kit;
 import dev.ses.kits.utils.item.ItemBuilder;
 import dev.ses.kits.utils.menu.buttons.Button;
 import dev.ses.kits.utils.menu.pagination.NavigationPosition;

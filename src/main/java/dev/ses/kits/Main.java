@@ -7,7 +7,7 @@ import dev.ses.kits.command.ManageKitCommand;
 import dev.ses.kits.command.ReloadCommand;
 import dev.ses.kits.handler.KitHandler;
 import dev.ses.kits.listener.KitListener;
-import dev.ses.kits.manager.kit.KitManager;
+import dev.ses.kits.kit.KitManager;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.ConfigCreator;
 import dev.ses.kits.utils.command.CommandManager;

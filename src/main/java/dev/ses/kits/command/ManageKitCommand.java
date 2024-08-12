@@ -1,9 +1,9 @@
 package dev.ses.kits.command;
 
 import dev.ses.kits.Main;
-import dev.ses.kits.manager.kit.Kit;
-import dev.ses.kits.manager.kit.menu.KitSelectionMenu;
-import dev.ses.kits.manager.kit.menu.KitsEditMenu;
+import dev.ses.kits.kit.Kit;
+import dev.ses.kits.kit.menu.KitSelectionMenu;
+import dev.ses.kits.kit.menu.KitsEditMenu;
 import dev.ses.kits.utils.Utils;
 import dev.ses.kits.utils.command.BaseCommand;
 import dev.ses.kits.utils.command.Command;

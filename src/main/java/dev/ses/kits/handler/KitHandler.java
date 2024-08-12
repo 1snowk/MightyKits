@@ -1,7 +1,7 @@
 package dev.ses.kits.handler;
 
 
-import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.kit.Kit;
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 

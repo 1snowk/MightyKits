@@ -1,10 +1,10 @@
 package dev.ses.kits.listener;
 
 import dev.ses.kits.Main;
-import dev.ses.kits.manager.kit.Kit;
-import dev.ses.kits.manager.kit.menu.KitPreviewMenu;
-import dev.ses.kits.manager.kit.menu.KitSelectionMenu;
-import dev.ses.kits.manager.kit.menu.KitsEditMenu;
+import dev.ses.kits.kit.Kit;
+import dev.ses.kits.kit.menu.KitPreviewMenu;
+import dev.ses.kits.kit.menu.KitSelectionMenu;
+import dev.ses.kits.kit.menu.KitsEditMenu;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.StringUtil;
 import dev.ses.kits.utils.Utils;
@@ -16,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class KitListener implements Listener {
 
