@@ -1,5 +1,5 @@
 # Mighty Kits
-### It is an open source kit plugin for Java Bukkit.
+### It is an open source kit plugin for Java Bukkit 1.8.
 
 ## Features
 
