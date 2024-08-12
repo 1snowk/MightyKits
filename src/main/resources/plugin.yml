@@ -1,0 +1,3 @@
+name: Mighty
+version: '${project.version}'
+main: dev.ses.kits.Main

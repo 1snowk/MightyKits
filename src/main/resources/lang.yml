@@ -1,0 +1,4 @@
+KIT-LANG:
+  NO-PERMISSION: "&cYou dont have perms to use {kit-name}"
+  NO-COOLDOWN: "&aYou can use this kit."
+  IN-COOLDOWN: ""
