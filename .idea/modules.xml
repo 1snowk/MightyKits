@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Gkits.iml" filepath="$PROJECT_DIR$/Gkits.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mighty.iml" filepath="$PROJECT_DIR$/Mighty.iml" />
+    </modules>
+  </component>
+</project>
