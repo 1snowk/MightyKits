@@ -15,13 +15,9 @@ public class KitHandler {
 
     private final Map<UUID, String> variantMap;
     private final Map<UUID, Kit> kitMap;
-    private final Map<UUID, String> displayNameMap;
-    private final Map<UUID, ItemStack> materialMap;
 
 
     public KitHandler(){
-        this.displayNameMap = new HashMap<>();
-        this.materialMap = new HashMap<>();
         this.variantMap = new HashMap<>();
         this.kitMap = new HashMap<>();
     }
