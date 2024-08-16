@@ -1,7 +1,7 @@
-package dev.ses.kits.kit.menu;
+package dev.ses.kits.manager.kit.menu;
 
 import dev.ses.kits.Main;
-import dev.ses.kits.kit.Kit;
+import dev.ses.kits.manager.kit.Kit;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.CooldownUtil;
 import dev.ses.kits.utils.Utils;
@@ -48,7 +48,14 @@ public class KitPreviewMenu extends Menu {
             event.setCancelled(true);
         });
 
-        this.buttons[52] = new Button(new ItemBuilder(Material.SKULL_ITEM, 1, 3).setSkullOwner(getPlayer().getName()).build()).setDisplayName(Color.translate("&aGive To Other Player")).setClickAction(event -> {
+        this.buttons[52] = new Button(new ItemBuilder(Material.SKULL_ITEM, 1, 3).setSkullOwner(getPlayer().getName()).build()).setDisplayName(Color.translate("&aGive To Other Player &7(Only op players)")).setClickAction(event -> {
+
+            if (!getPlayer().isOp()){
+                Utils.noPerms(getPlayer());
+                CompatibleSound.IRONGOLEM_HIT.play(getPlayer());
+                return;
+            }
+
             if (CooldownUtil.isInCooldown(getPlayer(), kit.getName())){
                 Utils.sendMessage(getPlayer(), "&cYou are in cooldown for: " + CooldownUtil.getCooldown(getPlayer(), kit.getName()));
                 return;
@@ -59,8 +66,9 @@ public class KitPreviewMenu extends Menu {
             event.setCancelled(true);
         });
 
-        this.buttons[53] = new Button(new ItemBuilder(Material.INK_SACK, 1, 10).build()).setDisplayName(Color.translate("&aClick here to equip this kit &7(Only op players)")).setClickAction(event -> {
-            if (!getPlayer().isOp()){
+        this.buttons[53] = new Button(new ItemBuilder(Material.INK_SACK, 1, 10).build()).setDisplayName(Color.translate("&aClick here to equip this kit")).setClickAction(event -> {
+
+            if (!getPlayer().hasPermission(kit.getPermission())){
                 Utils.noPerms(getPlayer());
                 CompatibleSound.IRONGOLEM_HIT.play(getPlayer());
                 return;

@@ -7,10 +7,12 @@ import dev.ses.kits.command.ManageKitCommand;
 import dev.ses.kits.command.ReloadCommand;
 import dev.ses.kits.handler.KitHandler;
 import dev.ses.kits.listener.KitListener;
-import dev.ses.kits.kit.KitManager;
+import dev.ses.kits.manager.category.CategoryManager;
+import dev.ses.kits.manager.command.CommandManager;
+import dev.ses.kits.manager.kit.KitManager;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.ConfigCreator;
-import dev.ses.kits.utils.command.CommandManager;
+
 import dev.ses.kits.utils.item.ItemUtils;
 import dev.ses.kits.utils.menu.MenuHandler;
 import lombok.Getter;
@@ -20,8 +22,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Getter
 public final class Main extends JavaPlugin {
 
-    private ConfigCreator configFile, kitsFile, langFile;
+    private ConfigCreator configFile, kitsFile, langFile, categoryFile;
     private KitManager kitManager;
+    private CategoryManager categoryManager;
     private CommandManager commandManager;
     private KitHandler kitHandler;
 
@@ -32,19 +35,19 @@ public final class Main extends JavaPlugin {
         this.configFile = new ConfigCreator("config.yml", this);
         this.kitsFile = new ConfigCreator("kits.yml", this);
         this.langFile = new ConfigCreator("lang.yml", this);
+        this.categoryFile = new ConfigCreator("categories.yml", this);
+
         this.kitManager = new KitManager(this);
         this.commandManager = new CommandManager(this);
+        this.categoryManager = new CategoryManager(this);
 
+        this.categoryManager.loadOrRefreshCategories();
         this.kitManager.loadOrRefreshKits();
         this.kitManager.createDefaultKit();
+        this.categoryManager.createDefaultCategory();
 
         Bukkit.getPluginManager().registerEvents(new KitListener(this), this);
-
-        Lists.newArrayList(new KitCommand(this), new ReloadCommand(this), new ManageKitCommand(this))
-                .forEach(command -> this.commandManager.registerCommands(command));
-
         ItemUtils.registerFakeEnchantmentGlow();
-
 
         log("&7&n"+Strings.repeat("-", 40));
         log("");
@@ -53,6 +56,7 @@ public final class Main extends JavaPlugin {
         log("&c&l* &9Version: &b"+this.getDescription().getVersion());
         log("&c&l* &9Author: &bsnowk");
         log("&c&l* &9Kits: &b" + this.kitManager.getKitList().size());
+        log("&c&l* &9Categories: &b" + this.categoryManager.getCategoryList().size());
         log("");
         log("&7&n"+Strings.repeat("-", 40));
     }
@@ -60,6 +64,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         this.kitManager.saveAllKits();
+        this.categoryManager.saveAll();
     }
 
     public void log(String text){

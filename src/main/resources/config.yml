@@ -1,3 +1,7 @@
 KITS-MENU:
   TITLE: "&cSelect your option"
   ROWS: 3
+
+CATEGORIES:
+  ENABLED: true
+

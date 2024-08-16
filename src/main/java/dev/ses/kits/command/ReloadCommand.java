@@ -1,12 +1,15 @@
 package dev.ses.kits.command;
 
+import com.google.common.base.Strings;
 import dev.ses.kits.Main;
 import dev.ses.kits.utils.Color;
-import dev.ses.kits.utils.command.BaseCommand;
-import dev.ses.kits.utils.command.Command;
-import dev.ses.kits.utils.command.CommandArgs;
+import io.github.nosequel.command.annotation.Command;
+import io.github.nosequel.command.annotation.Param;
+import io.github.nosequel.command.annotation.Subcommand;
+import io.github.nosequel.command.bukkit.executor.BukkitCommandExecutor;
 
-public class ReloadCommand implements BaseCommand {
+
+public class ReloadCommand{
 
     private Main main;
 
@@ -14,15 +17,27 @@ public class ReloadCommand implements BaseCommand {
         this.main = main;
     }
 
-    @Override
-    @Command (name = "mighty", inGameOnly = false, permission = "mighty.reload")
-    public void onCommand(CommandArgs command) {
-        if (command.getArgs()[0].equalsIgnoreCase("reload")){
-            main.getConfigFile().reload();
-            main.getKitsFile().reload();
-            main.getLangFile().reload();
-            main.getKitManager().loadOrRefreshKits();
-            command.getPlayer().sendMessage(Color.translate("&aPlugin has been reloaded."));
-        }
+    @Command(label = "mighty", permission = "mighty")
+    public void mighty(BukkitCommandExecutor executor){
+        executor.sendMessage("&7&n"+ Strings.repeat("-", 40));
+        executor.sendMessage("&9&lMighty &b&lKits");
+        executor.sendMessage("");
+        executor.sendMessage("&b* &fAuthor: &9snowk");
+        executor.sendMessage("&b* &fVersion: &9"+main.getDescription().getVersion());
+        executor.sendMessage("");
+        executor.sendMessage("&7&n"+ Strings.repeat("-", 40));
     }
+
+    @Subcommand(parentLabel = "mighty", label = "reload", permission = "mighty.reload")
+    public void reload(BukkitCommandExecutor executor){
+        main.getConfigFile().reload();
+        main.getKitsFile().reload();
+        main.getLangFile().reload();
+        main.getCategoryFile().reload();
+        main.getKitManager().saveAllKits();
+        main.getKitManager().loadOrRefreshKits();
+        main.getCategoryManager().loadOrRefreshCategories();
+        executor.sendMessage("&aPlugin has been reloaded.");
+    }
+
 }

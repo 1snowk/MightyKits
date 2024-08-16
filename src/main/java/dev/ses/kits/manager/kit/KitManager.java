@@ -1,4 +1,4 @@
-package dev.ses.kits.kit;
+package dev.ses.kits.manager.kit;
 
 
 import dev.ses.kits.Main;
@@ -18,11 +18,12 @@ public class KitManager {
 
     @Getter private final List<Kit> kitList;
     private final ConfigCreator kitsFile;
+    private Main main;
 
     public KitManager(Main main) {
         this.kitList = new ArrayList<>();
         this.kitsFile = main.getKitsFile();
-
+        this.main = main;
     }
 
     public void createDefaultKit(){
@@ -71,7 +72,7 @@ public class KitManager {
     }
 
     public void createKit(String name){
-        Kit newKit = new Kit();
+        Kit newKit = new Kit(main);
         newKit.setName(name);
         newKit.setDisplayName(name);
         newKit.setIconSlot(0);
@@ -87,7 +88,7 @@ public class KitManager {
     }
 
     public void createKit(String name, String displayName, List<String> lore, int slot, String material, int itemData, ItemStack[] contents, ItemStack[] armorContents, boolean glow, String category, long cooldown, boolean kitMapMode){
-        Kit newKit = new Kit();
+        Kit newKit = new Kit(main);
         newKit.setName(name);
         newKit.setDisplayName(displayName);
         newKit.setIconSlot(slot);

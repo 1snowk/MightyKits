@@ -23,6 +23,7 @@ public class Utils {
         }
     }
 
+
     public void noPerms(Player player){
         sendMessage(player, "&cYou dont have permissions.");
         CompatibleSound.VILLAGER_NO.play(player);

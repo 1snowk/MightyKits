@@ -1,8 +1,9 @@
-package dev.ses.kits.kit.menu;
+package dev.ses.kits.manager.kit.menu;
 
 
 import dev.ses.kits.Main;
-import dev.ses.kits.kit.Kit;
+import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.item.ItemBuilder;
 import dev.ses.kits.utils.menu.buttons.Button;
 import dev.ses.kits.utils.menu.pagination.NavigationPosition;
@@ -33,12 +34,22 @@ public class KitSelectionMenu extends PaginatedMenu {
 
         this.buttons[0] = new Button(Material.INK_SACK).setData((byte) 10).setDisplayName("&aCreate Kit").setLore(new String[]{"&aClick here to create a new kit."}).setClickAction(event -> {
            main.getKitHandler().getVariantMap().put(getPlayer().getUniqueId(), "create");
+           getPlayer().sendMessage(Color.translate("&aWrite in the chat the name of the new kit"));
            getPlayer().closeInventory();
         });
 
-        int index = 1;
+        this.buttons[1] = new Button(Material.STAINED_GLASS_PANE).setData((byte)7).setDisplayName(" ").setClickAction(event -> {
+            event.setCancelled(true);
+        });
+
+        this.buttons[9] = new Button(Material.STAINED_GLASS_PANE).setData((byte)7).setDisplayName(" ").setClickAction(event -> {
+            event.setCancelled(true);
+        });
+
+        int index = 2;
 
         for (Kit kits : main.getKitManager().getKitList()){
+            if (index == 9) continue;
             this.buttons[index] = new Button(new ItemBuilder(Material.getMaterial(kits.getMaterial()))
                     .setDurability(kits.getItemData()).build())
                     .setDisplayName(kits.getDisplayName())
