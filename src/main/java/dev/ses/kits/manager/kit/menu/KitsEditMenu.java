@@ -1,6 +1,7 @@
 package dev.ses.kits.manager.kit.menu;
 
 import dev.ses.kits.Main;
+import dev.ses.kits.manager.category.Category;
 import dev.ses.kits.manager.kit.Kit;
 import dev.ses.kits.utils.InventoryUtils;
 import dev.ses.kits.utils.StringUtil;
@@ -79,6 +80,11 @@ public class KitsEditMenu extends Menu implements Listener {
             this.updateMenu();
         });
 
+        this.buttons[40] = new Button(Material.STORAGE_MINECART).setDisplayName("&9Kit Category").setLore(new String[]{"", "&cClick here to set category kit.", "&cValue: &f"+kit.getCategory(), ""}).setClickAction(event -> {
+            categorySetMenu().updateMenu();
+            CompatibleSound.ANVIL_USE.play(getPlayer());
+        });
+
         this.buttons[45] = new Button(Material.FEATHER).setDisplayName("&cBack").setLore(new String[]{"&cClick here to return."}).setClickAction(event -> {
             new KitSelectionMenu(getPlayer(), main).updateMenu();
             CompatibleSound.NOTE_PLING.play(getPlayer());
@@ -96,7 +102,26 @@ public class KitsEditMenu extends Menu implements Listener {
             main.getKitManager().removeKit(kit);
             CompatibleSound.ANVIL_USE.play(getPlayer());
         });
+    }
 
+
+    public Menu categorySetMenu(){
+        return new Menu(getPlayer(), "", 3*9) {
+            @Override
+            public void tick() {
+                int index = 0;
+                for (Category category : main.getCategoryManager().getCategoryList()){
+                    this.buttons[index] = new Button(category.getIcon()).setLore(new String[]{"", "&cClick here to set this category."}).setClickAction(event -> {
+                        kit.setCategory(category.getName());
+                        new KitsEditMenu(getPlayer(), kit, main).updateMenu();
+                        CompatibleSound.ANVIL_USE.play(getPlayer());
+                    });
+
+                    if (index == 27) break;
+                    index++;
+                }
+            }
+        };
     }
 
     public void edit(String variant){

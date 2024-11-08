@@ -7,7 +7,6 @@ import dev.ses.kits.utils.menu.Menu;
 import dev.ses.kits.utils.menu.buttons.Button;
 import org.bukkit.entity.Player;
 
-
 public class CategoryMenu extends Menu {
 
     private final Main main;
@@ -19,13 +18,9 @@ public class CategoryMenu extends Menu {
         this.category = category;
     }
 
-
-
     @Override
     public void tick() {
-        for (Kit kits : main.getKitManager().getKitList()){
-            if (!kits.getCategory().equals(category.getName())) continue;
-
+        for (Kit kits : category.getKitsList()){
             this.buttons[kits.getIconSlot()] = new Button(kits.getIcon()).setLore(kits.getNewLore(getPlayer())).setClickAction(event -> {
                 kits.execute(getPlayer(), event, this);
             });

@@ -34,9 +34,17 @@ public class ReloadCommand{
         main.getKitsFile().reload();
         main.getLangFile().reload();
         main.getCategoryFile().reload();
-        main.getKitManager().saveAllKits();
+        main.getKitManager().saveAll();
+        main.getCategoryManager().saveAll();
         main.getKitManager().loadOrRefreshKits();
         main.getCategoryManager().loadOrRefreshCategories();
+        executor.sendMessage("&aPlugin has been reloaded.");
+    }
+
+    @Subcommand(parentLabel = "mighty", label = "saveAll", permission = "mighty.saveall", description = "Save all Kits and Categories.")
+    public void saveAll(BukkitCommandExecutor executor){
+        main.getKitManager().saveAll();
+        main.getCategoryManager().saveAll();
         executor.sendMessage("&aPlugin has been reloaded.");
     }
 

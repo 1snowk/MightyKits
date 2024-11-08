@@ -49,7 +49,7 @@ public class KitSelectionMenu extends PaginatedMenu {
         int index = 2;
 
         for (Kit kits : main.getKitManager().getKitList()){
-            if (index == 9) continue;
+            if (index == 9) index += 1;
             this.buttons[index] = new Button(new ItemBuilder(Material.getMaterial(kits.getMaterial()))
                     .setDurability(kits.getItemData()).build())
                     .setDisplayName(kits.getDisplayName())

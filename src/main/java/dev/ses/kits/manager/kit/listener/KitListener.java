@@ -1,4 +1,4 @@
-package dev.ses.kits.listener;
+package dev.ses.kits.manager.kit.listener;
 
 import dev.ses.kits.Main;
 import dev.ses.kits.manager.kit.Kit;
@@ -26,28 +26,28 @@ public class KitListener implements Listener {
     }
 
     @EventHandler
-    public void otherActionWithChat(AsyncPlayerChatEvent event){
+    public void otherActionWithChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
         if (!main.getKitHandler().getVariantMap().containsKey(player.getUniqueId())) return;
 
-        if (event.getMessage().equals("CANCEL")){
+        if (event.getMessage().equals("CANCEL")) {
             new KitSelectionMenu(player, main).updateMenu();
             main.getKitHandler().getVariantMap().remove(player.getUniqueId());
             CompatibleSound.VILLAGER_NO.play(player);
             return;
         }
 
-        if (main.getKitHandler().getVariantMap().get(player.getUniqueId()).equals("create")){
+        if (main.getKitHandler().getVariantMap().get(player.getUniqueId()).equals("create")) {
             main.getKitManager().createKit(message);
-            main.getKitManager().saveAllKits();
             new KitSelectionMenu(player, main).updateMenu();
             main.getKitHandler().getVariantMap().remove(player.getUniqueId());
             return;
         }
 
         if (!main.getKitHandler().getKitMap().containsKey(player.getUniqueId())) return;
+
         Kit kit = main.getKitHandler().getKitMap().get(player.getUniqueId());
 
         if (main.getKitHandler().getVariantMap().get(player.getUniqueId()).equals("give")){
@@ -65,6 +65,7 @@ public class KitListener implements Listener {
                 CompatibleSound.IRONGOLEM_HIT.play(player);
                 return;
             }
+            
             kit.giveToOtherPlayer(player, target);
             new KitPreviewMenu(player, kit, main).updateMenu();
             main.getKitHandler().getVariantMap().remove(player.getUniqueId());

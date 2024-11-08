@@ -1,12 +1,9 @@
 package dev.ses.kits;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import dev.ses.kits.command.KitCommand;
-import dev.ses.kits.command.ManageKitCommand;
-import dev.ses.kits.command.ReloadCommand;
+import dev.ses.kits.handler.CategoryHandler;
 import dev.ses.kits.handler.KitHandler;
-import dev.ses.kits.listener.KitListener;
+import dev.ses.kits.manager.kit.listener.KitListener;
 import dev.ses.kits.manager.category.CategoryManager;
 import dev.ses.kits.manager.command.CommandManager;
 import dev.ses.kits.manager.kit.KitManager;
@@ -27,19 +24,23 @@ public final class Main extends JavaPlugin {
     private CategoryManager categoryManager;
     private CommandManager commandManager;
     private KitHandler kitHandler;
+    private CategoryHandler categoryHandler;
+    private MenuHandler menuHandler;
 
     @Override
     public void onEnable() {
         this.kitHandler = new KitHandler();
-        new MenuHandler(this);
+        this.menuHandler = new MenuHandler(this);
+        this.categoryHandler = new CategoryHandler();
         this.configFile = new ConfigCreator("config.yml", this);
         this.kitsFile = new ConfigCreator("kits.yml", this);
         this.langFile = new ConfigCreator("lang.yml", this);
         this.categoryFile = new ConfigCreator("categories.yml", this);
 
+        this.categoryManager = new CategoryManager(this);
         this.kitManager = new KitManager(this);
         this.commandManager = new CommandManager(this);
-        this.categoryManager = new CategoryManager(this);
+
 
         this.categoryManager.loadOrRefreshCategories();
         this.kitManager.loadOrRefreshKits();
@@ -63,7 +64,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.kitManager.saveAllKits();
+        this.kitManager.saveAll();
         this.categoryManager.saveAll();
     }
 

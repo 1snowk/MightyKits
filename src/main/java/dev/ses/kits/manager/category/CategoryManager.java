@@ -3,6 +3,8 @@ package dev.ses.kits.manager.category;
 
 import com.google.common.collect.Lists;
 import dev.ses.kits.Main;
+import dev.ses.kits.manager.kit.Kit;
+import dev.ses.kits.manager.kit.KitManager;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.ConfigCreator;
 import lombok.Getter;
@@ -18,7 +20,7 @@ public class CategoryManager {
     @Getter
     private final List<Category> categoryList;
     private final ConfigCreator categoryFile;
-    private Main main;
+    private final Main main;
 
     public CategoryManager(Main main){
         this.categoryList = new ArrayList<>();
@@ -52,6 +54,7 @@ public class CategoryManager {
             customHead = categorySection.getBoolean("CUSTOM-HEAD.STATUS");
             List<String> iconLore = categorySection.getStringList("ICON.LORE");
             createCategory(categoryName, title, textureValue, displayName, material, materialData, iconSlot, rows, customHead, glow, iconLore);
+
         }
         main.log("&cCategories loaded: " + this.categoryList.size());
     }
@@ -74,6 +77,7 @@ public class CategoryManager {
         newCategory.setGlow(glow);
         newCategory.setCustomHead(customHead);
         newCategory.setIconLore(iconLore);
+        newCategory.setKitsList(new ArrayList<>());
         if (categoryList.contains(newCategory)) return;
         categoryList.add(newCategory);
     }
@@ -96,6 +100,7 @@ public class CategoryManager {
     }
 
     public void saveCategory(Category category){
+        if (categoryList.isEmpty()) return;
         if (categoryFile.getSection("CATEGORIES") == null) categoryFile.createSection("CATEGORIES");
         if (categoryFile.getSection("CATEGORIES."+category.getName()) == null) categoryFile.createSection("CATEGORIES."+category.getName());
 

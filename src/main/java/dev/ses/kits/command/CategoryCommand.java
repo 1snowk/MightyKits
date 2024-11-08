@@ -17,7 +17,7 @@ public class CategoryCommand  {
 
     @Command(label = "categoryedit", permission = "mighty.category.edit", aliases = "managecategories", userOnly = true)
     public void execute(BukkitCommandExecutor executor){
-        new CategorySelectionMenu(executor.getPlayer(), main);
+        new CategorySelectionMenu(executor.getPlayer(), main).updateMenu();
     }
 
     @Command(label = "category", permission = "mighty.category.edit", aliases = "categories", userOnly = true)

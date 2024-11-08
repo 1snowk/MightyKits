@@ -2,6 +2,7 @@ package dev.ses.kits.manager.kit;
 
 
 import dev.ses.kits.Main;
+import dev.ses.kits.manager.category.Category;
 import dev.ses.kits.utils.Color;
 import dev.ses.kits.utils.ConfigCreator;
 import dev.ses.kits.utils.InventoryUtils;
@@ -87,7 +88,7 @@ public class KitManager {
         this.kitList.add(newKit);
     }
 
-    public void createKit(String name, String displayName, List<String> lore, int slot, String material, int itemData, ItemStack[] contents, ItemStack[] armorContents, boolean glow, String category, long cooldown, boolean kitMapMode){
+    public void createKit(String name, String displayName, List<String> lore, int slot, String material, int itemData, ItemStack[] contents, ItemStack[] armorContents, boolean glow, String categoryName, long cooldown, boolean kitMapMode){
         Kit newKit = new Kit(main);
         newKit.setName(name);
         newKit.setDisplayName(displayName);
@@ -96,12 +97,17 @@ public class KitManager {
         newKit.setItemData(itemData);
         newKit.setContents(InventoryUtils.getRealItems(contents));
         newKit.setGlow(glow);
-        newKit.setCategory(category);
+        newKit.setCategory(categoryName);
         newKit.setArmor(armorContents);
         newKit.setIconLore(lore);
         newKit.setCooldown(cooldown);
         newKit.setKitMapMode(kitMapMode);
         this.kitList.add(newKit);
+
+        Category category = main.getCategoryManager().getByName(categoryName);
+        if ( category != null){
+            category.getKitsList().add(newKit);
+        }
     }
 
     public void removeKit(Kit kit){
@@ -125,38 +131,26 @@ public class KitManager {
         return new ItemStack[]{new ItemBuilder(Material.DIAMOND_SWORD).setName("&c&lDefault Sword").build()};
     }
 
-    public void saveAllKits(){
+    public void saveKit(Kit kit){
         if (this.kitList.isEmpty()) return;
         if (kitsFile.getSection("KITS") == null) kitsFile.createSection("KITS");
+        kitsFile.set("KITS."+kit.getName()+".DISPLAY-NAME", kit.getDisplayName());
+        kitsFile.set("KITS."+kit.getName()+".MATERIAL", kit.getMaterial());
+        kitsFile.set("KITS."+kit.getName()+".DATA", kit.getItemData());
+        kitsFile.set("KITS."+kit.getName()+".CATEGORY.NAME", kit.getCategory());
+        kitsFile.set("KITS."+kit.getName()+".CATEGORY.SLOT", kit.getIconSlot());
+        kitsFile.set("KITS."+kit.getName()+".GLOW", kit.isGlow());
+        kitsFile.set("KITS."+kit.getName()+".CONTENTS", InventoryUtils.itemStackArrayToBase64(InventoryUtils.getRealItems(kit.getContents())));
+        kitsFile.set("KITS."+kit.getName()+".ARMOR", InventoryUtils.itemStackArrayToBase64(InventoryUtils.getRealItems(kit.getArmor())));
+        kitsFile.set("KITS."+kit.getName()+".LORE", kit.getIconLore());
+        kitsFile.set("KITS."+kit.getName()+".COOLDOWN", kit.getCooldown());
+        kitsFile.set("KITS."+kit.getName()+".KITMAP-MODE", kit.isKitMapMode());
+        kitsFile.save();
+    }
+
+    public void saveAll(){
         for (Kit kit : this.kitList){
-            kitsFile.createSection("KITS."+kit.getName());
-            kitsFile.createSection("KITS."+kit.getName()+".DISPLAY-NAME");
-            kitsFile.createSection("KITS."+kit.getName()+".MATERIAL");
-            kitsFile.createSection("KITS."+kit.getName()+".DATA");
-            kitsFile.createSection("KITS."+kit.getName()+".LORE");
-            kitsFile.createSection("KITS."+kit.getName()+".COOLDOWN");
-            kitsFile.createSection("KITS."+kit.getName()+".CATEGORY.NAME");
-            kitsFile.createSection("KITS."+kit.getName()+".CATEGORY.SLOT");
-            kitsFile.createSection("KITS."+kit.getName()+".GLOW");
-            kitsFile.createSection("KITS."+kit.getName()+".CONTENTS");
-            kitsFile.createSection("KITS."+kit.getName()+".ARMOR");
-            kitsFile.createSection("KITS."+kit.getName()+".KITMAP-MODE");
-            kitsFile.save();
-
-            kitsFile.set("KITS."+kit.getName()+".DISPLAY-NAME", kit.getDisplayName());
-            kitsFile.set("KITS."+kit.getName()+".MATERIAL", kit.getMaterial());
-            kitsFile.set("KITS."+kit.getName()+".DATA", kit.getItemData());
-            kitsFile.set("KITS."+kit.getName()+".CATEGORY.NAME", kit.getCategory());
-            kitsFile.set("KITS."+kit.getName()+".CATEGORY.SLOT", kit.getIconSlot());
-            kitsFile.set("KITS."+kit.getName()+".GLOW", kit.isGlow());
-            kitsFile.set("KITS."+kit.getName()+".CONTENTS", InventoryUtils.itemStackArrayToBase64(InventoryUtils.getRealItems(kit.getContents())));
-            kitsFile.set("KITS."+kit.getName()+".ARMOR", InventoryUtils.itemStackArrayToBase64(InventoryUtils.getRealItems(kit.getArmor())));
-            kitsFile.set("KITS."+kit.getName()+".LORE", kit.getIconLore());
-            kitsFile.set("KITS."+kit.getName()+".COOLDOWN", kit.getCooldown());
-            kitsFile.set("KITS."+kit.getName()+".KITMAP-MODE", kit.isKitMapMode());
-            kitsFile.save();
+            saveKit(kit);
         }
-
-        this.kitList.clear();
     }
 }

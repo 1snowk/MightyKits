@@ -36,7 +36,7 @@ public class CategorySelectionMenu extends PaginatedMenu {
         this.setPreviousPageButton(previous);
 
         this.buttons[0] = new Button(Material.INK_SACK).setData((byte) 10).setDisplayName("&aCreate Category").setLore(new String[]{"&aClick here to create a new category."}).setClickAction(event -> {
-           main.getKitHandler().getVariantMap().put(getPlayer().getUniqueId(), "create");
+           main.getKitHandler().getVariantMap().put(getPlayer().getUniqueId(), "create2");
            getPlayer().sendMessage(Color.translate("&aWrite in the chat the name of the new category."));
            getPlayer().closeInventory();
         });
@@ -48,12 +48,12 @@ public class CategorySelectionMenu extends PaginatedMenu {
         int index = 2;
 
         for (Category categories: main.getCategoryManager().getCategoryList()){
-            if (index == 9) continue;
+            if (index == 9) index += 1;
             this.buttons[index] = new Button(new ItemBuilder(Material.getMaterial(categories.getMaterial()))
                     .setDurability(categories.getMaterialData()).build())
                     .setDisplayName(categories.getDisplayName())
                     .setLore(new String[]{
-                    "&9Click here to edit this kit."
+                    "&9Click here to edit this Category."
             }).setClickAction(event -> {
                 event.setCancelled(true);
                     });
